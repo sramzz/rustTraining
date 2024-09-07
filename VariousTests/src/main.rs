@@ -1,10 +1,14 @@
+#![deny(clippy::all)]
+
 // use core::num;
 use std::io;
 fn main() {
     // testing shadowing
-    let x: i8 = 2;
+    //let x: i8 = 2;
     let x: String = "hola".to_string();
-    // testing var mutability
+    /*
+    testing var mutability
+  ``  */
     let mut y: i8 = 8;
     y = 10;
     println!("{x} and {y}");
