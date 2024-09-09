@@ -7,8 +7,8 @@ fn main() {
     //let x: i8 = 2;
     let x: String = "hola".to_string();
     /*
-    testing var mutability
-  ``  */
+      testing var mutability
+    ``  */
     let mut y: i8 = 8;
     y = 10;
     println!("{x} and {y}");
@@ -45,8 +45,8 @@ fn main() {
     println!("The fib number {0} is {1}", fibo_num, fibo(fibo_num));
 
     //testing my input function
-    let rnd_int:i32 = testing_my_knowledge("Type an int");
-    println!("This is your int: {}",rnd_int);
+    let rnd_int: i32 = testing_my_knowledge("Type an int");
+    println!("This is your int: {}", rnd_int);
     //finishing the program
     println!("Press enter to exit...");
     let mut input = String::new();
@@ -112,10 +112,11 @@ fn user_input(shown_text: &str) -> String {
 
 fn testing_my_knowledge(text_to_user: &str) -> i32 {
     //print some text to tell the user what to do
-    println!("{}",text_to_user);
+    println!("{}", text_to_user);
     //create a variable to read that text
     let mut user_input = String::new();
-    io::stdin().read_line(&mut user_input).
-    expect("expected an input");
+    io::stdin()
+        .read_line(&mut user_input)
+        .expect("expected an input");
     user_input.trim().parse::<i32>().unwrap_or(0)
 }
