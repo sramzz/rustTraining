@@ -9,8 +9,7 @@ fn main() {
     /*
       testing var mutability
     ``  */
-    let mut y: i8 = 8;
-    y = 10;
+    let y: i8 = 8;
     println!("{x} and {y}");
     //testing loops and vectors
     let new_vector: Vec<i32> = looping(5);
