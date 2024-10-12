@@ -59,7 +59,10 @@ fn main() {
     
     let _hola: &str = "hola";
     }
-
-
+    //Learning to use the Option Enum
+    let x:i32 = 5;
+    let y:Option<i32> = Some(5);
+    let sum = x + y.unwrap_or(0) ;
+    print!("\nthe sum was {}",sum)
 
 }
