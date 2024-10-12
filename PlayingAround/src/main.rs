@@ -41,7 +41,7 @@ impl Shape {
 }
 
 fn main() {
-    let shapes_vector = vec![
+    let shapes_vector: Vec<Shape> = vec![
         Shape::Circle(Circle{radius:2.5}),
         Shape::Square(Square{side:4.0}),
         Shape::Rectangle(
