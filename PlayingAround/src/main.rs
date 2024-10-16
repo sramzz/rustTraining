@@ -41,7 +41,7 @@ impl Shape {
 }
 
 fn main() {
-    let shapes_vector = vec![
+    let shapes_vector: Vec<Shape> = vec![
         Shape::Circle(Circle{radius:2.5}),
         Shape::Square(Square{side:4.0}),
         Shape::Rectangle(
@@ -56,8 +56,13 @@ fn main() {
     ];
     for shape in shapes_vector.iter(){
         println!("the area of {} is {}",shape,shape.area());
+    
+    let _hola: &str = "hola";
     }
-
-
+    //Learning to use the Option Enum
+    let x:i32 = 5;
+    let y:Option<i32> = Some(5);
+    let sum = x + y.unwrap_or(0) ;
+    print!("\nthe sum was {}",sum)
 
 }
