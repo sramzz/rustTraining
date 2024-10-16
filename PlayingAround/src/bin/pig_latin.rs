@@ -9,7 +9,6 @@ Keep in mind the details about UTF-8 encoding!
 //     is_consonant: bool,
 // }
 
-use std::fmt::format;
 
 fn word_translation (word:&str) -> String {
     let mut word_without_first_char = String::new();

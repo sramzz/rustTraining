@@ -21,6 +21,13 @@ fn mode(numbers: &Vec<u32>) -> Option<u32> {
             max_key = Some(key);  // Store the key of the maximum value
         }
     }
+fn mean(){
+
+}
+
+fn median (){
+    
+}
 
     max_key  // Return the mode, or None if the vector is empty
 }
