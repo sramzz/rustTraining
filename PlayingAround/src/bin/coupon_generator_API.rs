@@ -12,8 +12,6 @@ use std::sync::atomic::{AtomicUsize, Ordering};
 use std::sync::Arc;
 use thiserror::Error;
 use tokio::io::AsyncWrite;
-
-/// Errors that can occur during coupon generation and CSV writing.
 #[derive(Error, Debug)]
 pub enum CouponError {
     /// Occurs when the initials length exceeds the total coupon length.
@@ -151,25 +149,48 @@ pub fn coupon_generator(
 /// # Errors
 ///
 /// This function will return an error if there are issues writing to the CSV or if the input stream yields an error.
-pub async fn write_coupons_to_csv<W: AsyncWrite + Unpin>(
-    writer: W,
-    coupons: impl Stream<Item = Result<String, CouponError>>,
-) -> Result<(), CouponError> {
-    use tokio::io::AsyncWriteExt;
+// pub async fn write_coupons_to_csv<W: AsyncWrite + Unpin>(
+//     writer: W,
+//     coupons: impl Stream<Item = Result<String, CouponError>>,
+// ) -> Result<(), CouponError> {
+//     use tokio::io::AsyncWriteExt;
 
-    let mut csv_writer = csv_async::AsyncWriter::from_writer(writer);
-    csv_writer.write_record(&["Coupon"]).await?;
+//     let mut csv_writer = csv_async::AsyncWriter::from_writer(writer);
+//     csv_writer.write_record(&["Coupon"]).await?;
 
-    tokio::pin!(coupons);
-    while let Some(coupon_result) = coupons.next().await {
-        let coupon = coupon_result?;
-        csv_writer.write_record(&[&coupon]).await?;
-    }
+//     tokio::pin!(coupons);
+//     while let Some(coupon_result) = coupons.next().await {
+//         let coupon = coupon_result?;
+//         csv_writer.write_record(&[&coupon]).await?;
+//     }
 
-    csv_writer.flush().await?;
+//     csv_writer.flush().await?;
+//     Ok(())
+// }
+
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+    // Start timing the coupon generation
+    let start = std::time::Instant::now();
+
+    // Generate coupons with total length 10, 1,000,000 coupons, and initials "LISA"
+    let coupons = coupon_generator(10, 1_000_000, "LISA")?;
+    let generation_duration = start.elapsed(); // Measure time taken
+
+    println!(
+        "Generated {} coupons in {:?}",
+        coupons.len(),
+        generation_duration
+    );
+    println!("First few coupons: {:?}", &coupons[..5]); // Display first few coupons
+
+    // Start timing the CSV writing
+    let csv_start = std::time::Instant::now();
+    write_coupons_to_csv(&coupons, "coupons.csv")?;
+    let csv_duration = csv_start.elapsed(); // Measure time taken
+
+    println!("Wrote coupons to CSV in {:?}", csv_duration);
     Ok(())
 }
-
 // Example usage in an API context (using actix-web):
 //
 // ```
